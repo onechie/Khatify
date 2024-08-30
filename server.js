@@ -2,7 +2,6 @@ const path = require("path");
 const http = require("http");
 const express = require("express");
 const socketio = require("socket.io");
-const moment = require("moment");
 
 const app = express();
 const server = http.createServer(app);
@@ -62,9 +61,6 @@ function handleDisconnection(socket, isGone = false) {
 function isSocketInWaitingList(socket) {
   return waitingUsers.includes(socket);
 }
-function getCurrentTime() {
-  return { time: moment().format("h:m a") };
-}
 
 io.on("connection", (socket) => {
   onlineUsers += 1;
@@ -77,7 +73,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("message", ({ roomId, message }) => {
-    socket.to(roomId).emit("message", { message, time: getCurrentTime().time });
+    socket.to(roomId).emit("message", { message});
   });
 
   socket.on("partnerDisconnect", () => handleDisconnection(socket));

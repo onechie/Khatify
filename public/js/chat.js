@@ -15,8 +15,8 @@ socket.on("paired", (roomId) => {
   isPaired = true;
 });
 
-socket.on("message", ({ message, time }) => {
-  appendMessage("Stranger", message, time);
+socket.on("message", ({ message }) => {
+  appendMessage("Stranger", message, getCurrentTime());
 });
 
 socket.on("partnerDisconnected", () => {
