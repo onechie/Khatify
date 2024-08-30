@@ -120,3 +120,10 @@ html, body {
     font-weight: 900;
     font-style: italic;
   }
+  .playwrite-cu {
+    font-family: "Playwrite CU", cursive;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+  }
+  

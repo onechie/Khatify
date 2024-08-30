@@ -7,6 +7,10 @@ const disconnectPartner = document.getElementById("disconnect-partner");
 const onlineUsers = document.getElementById("online-users");
 const messageInput = document.getElementById("message-input");
 const messageButton = document.getElementById("message-send");
+const disconnectModal = document.getElementById("disconnect-modal");
+const disconnectYes = document.getElementById("disconnect-yes");
+const disconnectNo = document.getElementById("disconnect-no");
+const disconnectText = document.getElementById("disconnect-text");
 
 let userRoomId = null;
 let isPaired = false;
@@ -51,7 +55,8 @@ socket.on("paired", (roomId) => {
   userRoomId = roomId;
   chatBox.innerHTML = "";
   appendMessage("System", "You are now chatting with a stranger...");
-  disableButtons();
+  disableButtons(false);
+  isPaired = true;
 });
 
 // WHEN SENDING MESSAGE
@@ -70,25 +75,41 @@ socket.on("message", ({ message, time }) => {
 // WHEN PARTNER DISCONNECTED
 socket.on("partnerDisconnected", () => {
   appendMessage("System", "Stranger Disconnected...");
-  toggleButtons();
-  disableButtons();
+  swapButtons();
+  disableButtons(true);
+  isPaired = false;
 });
 
 // LOOK FOR A PARTNER
 findPartner.addEventListener("click", () => {
   appendMessage("System", "Looking for partner...");
+  toggleLoading(findPartner, true);
   setTimeout(() => {
     socket.emit("findPartner");
-  }, 500);
-  toggleButtons();
+    toggleLoading(findPartner, false);
+    swapButtons();
+  }, 1000);
 });
 
 // DISCONNECT PARTNER
 disconnectPartner.addEventListener("click", () => {
+  if(isPaired){
+    disconnectText.innerText = "Are you sure you want to disconnect to your partner?";
+  }else{
+    disconnectText.innerText = "Are you sure you want to disconnect looking for partner?";
+  }
+  disconnectModal.hidden = false;
+});
+disconnectYes.addEventListener("click", () => {
   socket.emit("partnerDisconnect");
   appendMessage("System", "You Disconnected...");
-  toggleButtons();
-  disableButtons();
+  swapButtons();
+  disableButtons(true);
+  disconnectModal.hidden = true;
+  isPaired = false;
+});
+disconnectNo.addEventListener("click", () => {
+  disconnectModal.hidden = true;
 });
 
 // HANDLE MESSAGE FORM SUBMISSION
@@ -101,14 +122,26 @@ chatForm.addEventListener("submit", (e) => {
 });
 
 // TOGGLE BETWEEN FIND AND DISCONNECT BUTTONS
-function toggleButtons() {
+function swapButtons() {
   findPartner.hidden = !findPartner.hidden;
   disconnectPartner.hidden = !disconnectPartner.hidden;
 }
 
-function disableButtons() {
-  messageInput.disabled = !messageInput.disabled;
-  messageButton.disabled = !messageButton.disabled;
+function disableButtons(shouldDisable) {
+  messageInput.disabled = shouldDisable;
+  messageButton.disabled = shouldDisable;
+}
+
+function toggleLoading(element, on) {
+  if (on) {
+    element.disabled = true;
+    element.querySelector(".text").style.display = "none";
+    element.querySelector(".loading").style.display = "block";
+  } else {
+    element.disabled = false;
+    element.querySelector(".text").style.display = "block";
+    element.querySelector(".loading").style.display = "none";
+  }
 }
 
 function getCurrentTime() {
