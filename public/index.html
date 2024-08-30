@@ -15,93 +15,45 @@
     <title>Khatify</title>
 </head>
 
-<body class="bg-neutral-900 p-5 text-white poppins-regular flex flex-col">
-    <div class="flex justify-between items-center">
+<body class="bg-neutral-900 p-2 text-white poppins-regular flex flex-col">
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-2 sm:space-y-0">
         <h3
-            class="text-xl border border-2 border-purple-600 h-16 rounded-md font-bold px-3 flex items-center playwrite-cu">
+            class="text-lg sm:text-xl border border-2 border-purple-600 h-12 sm:h-16 rounded-md font-bold px-2 sm:px-3 flex items-center justify-center playwrite-cu">
             Khatify!
         </h3>
-        <h3 class="text-xl text-purple-600">Online Users : <span id="online-users"
+        <h3 class="text-lg sm:text-xl text-purple-600 text-center">Online Users: <span id="online-users"
                 class="text-white underline underline-offset-4"></span></h3>
         <button type="button" id="find-partner"
-            class="bg-purple-600 rounded-md h-16 px-3 w-[130px] disabled:bg-purple-950">
+            class="bg-purple-600 rounded-md h-12 sm:h-16 px-2 sm:px-3 w-full sm:w-[130px] disabled:bg-purple-950">
             <div class="flex justify-center items-center">
                 <span class="text text-sm font-semibold shadow-sm">Find Partner</span>
-                <svg class="loading animate-spin h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg"
-                    fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <svg class="loading animate-spin h-4 sm:h-5 w-4 sm:w-5 text-white hidden"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                    </circle>
                     <path class="opacity-75" fill="currentColor"
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                     </path>
                 </svg>
             </div>
         </button>
-        <button type="button" id="disconnect-partner" class="bg-white rounded-md font-semibold h-16 px-3 w-[130px]"
-            hidden>
-            <span class="text text-sm font-semibold text-neutral-900 shadow-sm">Disconnect</span>
+        <button type="button" id="disconnect-partner"
+            class="bg-white rounded-md font-semibold h-12 sm:h-16 px-2 sm:px-3 w-full sm:w-[130px]" hidden>
+            <span class="text-sm font-semibold text-neutral-900 shadow-sm">Disconnect</span>
         </button>
 
     </div>
-    <div id="chat-box" class="my-4 rounded-xl bg-neutral-950 p-3 flex-grow overflow-auto">
-        <!-- <div class="flex flex-col pb-2">
-            <div class="px-4 py-3 bg-neutral-900 max-w-[80%] w-fit rounded-xl">
-                <p class="text-wrap break-words">Lorem ipsum dolor sit amet. Et repellat ducimus ab sapiente vitae est
-                    minima maxime aut impedit similique et voluptas provident aut distinctio voluptas. Nam assumenda
-                    quis ad voluptatem recusandae aut ipsum dolor.</p>
-                <p class="text-neutral-300 text-end">10:20 PM</p>
-            </div>
-        </div>
-        <div class="flex flex-col items-end pb-2">
-            <div class="px-4 py-3 bg-purple-500 max-w-[80%] w-fit rounded-xl">
-                <p class="text-wrap break-words">Lorem ipsum dolor sit amet. Et repellat ducimus ab sapiente vitae est
-                    minima maxime aut impedit similique et voluptas provident aut distinctio voluptas. Nam assumenda
-                    quis ad voluptatem recusandae aut ipsum dolor.</p>
-                <p class="text-neutral-300 text-end">10:20 PM</p>
-            </div>
-        </div>
-        <div class="flex flex-col pb-2">
-            <div class="px-4 py-3 bg-neutral-900 max-w-[80%] w-fit rounded-xl">
-                <p class="text-wrap break-words">Lorem ipsum dolor sit amet. Et repellat ducimus ab sapiente vitae est
-                    minima maxime aut impedit similique et voluptas provident aut distinctio voluptas. Nam assumenda
-                    quis ad voluptatem recusandae aut ipsum dolor.</p>
-                <p class="text-neutral-300 text-end">10:20 PM</p>
-            </div>
-        </div>
-        <div class="flex flex-col items-end pb-2">
-            <div class="px-4 py-3 bg-purple-500 max-w-[80%] w-fit rounded-xl">
-                <p class="text-wrap break-words">Lorem ipsum dolor sit amet. Et repellat ducimus ab sapiente vitae est
-                    minima maxime aut impedit similique et voluptas provident aut distinctio voluptas. Nam assumenda
-                    quis ad voluptatem recusandae aut ipsum dolor.</p>
-                <p class="text-neutral-300 text-end">10:20 PM</p>
-            </div>
-        </div>
-        <div class="flex flex-col pb-2">
-            <div class="px-4 py-3 bg-neutral-900 max-w-[80%] w-fit rounded-xl">
-                <p class="text-wrap break-words">Lorem ipsum dolor sit amet. Et repellat ducimus ab sapiente vitae est
-                    minima maxime aut impedit similique et voluptas provident aut distinctio voluptas. Nam assumenda
-                    quis ad voluptatem recusandae aut ipsum dolor.</p>
-                <p class="text-neutral-300 text-end">10:20 PM</p>
-            </div>
-        </div>
-        <div class="flex flex-col items-end pb-2">
-            <div class="px-4 py-3 bg-purple-500 max-w-[80%] w-fit rounded-xl">
-                <p class="text-wrap break-words">Lorem ipsum dolor sit amet. Et repellat ducimus ab sapiente vitae est
-                    minima maxime aut impedit similique et voluptas provident aut distinctio voluptas. Nam assumenda
-                    quis ad voluptatem recusandae aut ipsum dolor.</p>
-                <p class="text-neutral-300 text-end">10:20 PM</p>
-            </div>
-        </div>
-        <p class="text-center pb-2 text-neutral-300">Stranger has disconnected</p>
-        <p class="text-center pb-2 text-neutral-300">You are now talking to a stranger</p> -->
+
+    <div id="chat-box" class="my-3 rounded-xl bg-neutral-950 p-2 sm:p-3 flex-grow overflow-auto">
         <p class="text-center pb-2 text-neutral-300">Welcome to Khatify!</p>
     </div>
 
-    <form id="chat-form" class="flex gap-3">
+    <form id="chat-form" class="flex gap-2 sm:gap-3">
         <input type="text" id="message-input" name="message"
-            class="flex-grow rounded-md bg-neutral-950 p-3 border border-transparent focus:border-purple-500 focus:ring-purple-500 focus:ring-1 focus:outline-none"
+            class="flex-grow w-full bg-neutral-950 p-2 sm:p-3 border border-transparent focus:border-purple-500 focus:ring-purple-500 focus:ring-1 focus:outline-none"
             disabled>
         <button type="submit" id="message-send"
-            class="bg-purple-600 p-3 rounded-md text-sm font-semibold shadow-sm disabled:bg-purple-950 disabled:text-neutral-500"
+            class="bg-purple-600 p-2 sm:p-3 rounded-md text-sm font-semibold shadow-sm disabled:bg-purple-950 disabled:text-neutral-500"
             disabled>Send</button>
     </form>
 
@@ -126,9 +78,7 @@
                                 <h3 class="text-base font-semibold leading-6" id="modal-title">Disconnect</h3>
                                 <div class="mt-2">
                                     <p class="text-sm text-neutral-300" id="disconnect-text">Are you sure you want to
-                                        disconnect to
-                                        your
-                                        partner?</p>
+                                        disconnect to your partner?</p>
                                 </div>
                             </div>
                         </div>
@@ -149,5 +99,6 @@
     <script src="/js/ui.js"></script>
     <script src="/js/events.js"></script>
 </body>
+
 
 </html>
