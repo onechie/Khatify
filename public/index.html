@@ -12,48 +12,80 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <title>Khatify</title>
 </head>
 
 <body class="bg-neutral-900 p-2 text-white poppins-regular flex flex-col">
     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-2 sm:space-y-0">
-        <h3
-            class="text-lg sm:text-xl border border-2 border-purple-600 h-12 sm:h-16 rounded-md font-bold px-2 sm:px-3 flex items-center justify-center playwrite-cu">
-            Khatify!
-        </h3>
-        <h3 class="text-lg sm:text-xl text-purple-600 text-center">Online Users: <span id="online-users"
-                class="text-white underline underline-offset-4"></span></h3>
-        <button type="button" id="find-partner"
-            class="bg-purple-600 rounded-md h-12 sm:h-16 px-2 sm:px-3 w-full sm:w-[130px] disabled:bg-purple-950">
-            <div class="flex justify-center items-center">
-                <span class="text text-sm font-semibold shadow-sm">Find Partner</span>
-                <svg class="loading animate-spin h-4 sm:h-5 w-4 sm:w-5 text-white hidden"
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
-                    </circle>
-                    <path class="opacity-75" fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+        <!-- Hamburger Menu Button -->
+        <div class="flex justify-between">
+            <h3
+                class="text-lg sm:text-xl border border-2 border-purple-600 h-12 sm:h-16 rounded-md px-2 sm:px-3 flex items-center justify-center pacifico-regular">
+                Khatify!
+            </h3>
+            <button id="hamburger-menu"
+                class="block sm:hidden text-white bg-neutral-900 px-3 rounded-md hover:bg-neutral-950 hover:text-neutral-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
                     </path>
                 </svg>
-            </div>
-        </button>
-        <button type="button" id="disconnect-partner"
-            class="bg-white rounded-md font-semibold h-12 sm:h-16 px-2 sm:px-3 w-full sm:w-[130px]" hidden>
-            <span class="text-sm font-semibold text-neutral-900 shadow-sm">Disconnect</span>
-        </button>
+            </button>
+        </div>
 
+
+        <!-- Collapsible Content -->
+        <div id="collapsible-content"
+            class="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-3 sm:space-y-0 hidden sm:flex sm:gap-4 flex-grow sm:ps-5">
+
+            <h3 class="text-lg sm:text-xl text-purple-600 text-center py-2 sm:text-nowrap">Online Users: <span
+                    id="online-users" class="text-white underline underline-offset-2"></span></h3>
+
+            <label for="username-input" class="text-sm text-center sm:text-nowrap">
+                Username
+            </label>
+            <input type="text" id="username-input" autocomplete="off" placeholder="Stranger"
+                class="rounded-md text-center text-sm flex-grow w-full bg-neutral-950 p-2 sm:p-3 border border-transparent focus:border-purple-500 focus:ring-purple-500 focus:ring-1 focus:outline-none">
+            <label for="interest-input" class="text-sm text-center sm:text-nowrap">
+                Interest
+            </label>
+            <input type="" id="interest-input" autocomplete="off" placeholder='Separate with comma ","'
+                class="rounded-md text-center text-sm flex-grow w-full bg-neutral-950 p-2 sm:p-3 border border-transparent focus:border-purple-500 focus:ring-purple-500 focus:ring-1 focus:outline-none">
+
+            <button type="button" id="find-partner"
+                class="bg-purple-600 rounded-md h-12 sm:h-16 px-2 sm:px-3 w-full sm:w-[130px] disabled:bg-purple-950 hover:bg-purple-500">
+                <div class="flex justify-center items-center">
+                    <span class="text sm:text-nowrap text-sm font-semibold shadow-sm">Find Partner</span>
+                    <svg class="loading animate-spin h-4 sm:h-5 w-4 sm:w-5 text-white hidden"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                </div>
+            </button>
+            <button type="button" id="disconnect-partner"
+                class="bg-white rounded-md font-semibold h-12 sm:h-16 px-2 sm:px-3 w-full sm:w-[130px] hover:bg-neutral-200"
+                hidden>
+                <span class="text-sm font-semibold text-neutral-900 shadow-sm">Disconnect</span>
+            </button>
+        </div>
     </div>
 
+
     <div id="chat-box" class="my-3 rounded-xl bg-neutral-950 p-2 sm:p-3 flex-grow overflow-auto">
-        <p class="text-center pb-2 text-neutral-300">Welcome to Khatify!</p>
+        <p class="text-center pb-2 text-neutral-500">Welcome to Khatify!</p>
     </div>
 
     <form id="chat-form" class="flex gap-2 sm:gap-3">
         <input type="text" id="message-input" name="message" autocomplete="off"
-            class="flex-grow w-full bg-neutral-950 p-2 sm:p-3 border border-transparent focus:border-purple-500 focus:ring-purple-500 focus:ring-1 focus:outline-none"
+            class="flex-grow rounded-md w-full bg-neutral-950 p-2 sm:p-3 border border-transparent focus:border-purple-500 focus:ring-purple-500 focus:ring-1 focus:outline-none"
             disabled>
         <button type="submit" id="message-send"
-            class="bg-purple-600 h-12 p-2 sm:p-3 rounded-md text-sm font-semibold shadow-sm disabled:bg-purple-950 disabled:text-neutral-500"
+            class="bg-purple-600 h-12 py-2 px-3 sm:p-3 rounded-md text-sm shadow-sm disabled:bg-purple-950 disabled:text-neutral-500 hover:bg-purple-500"
             disabled>Send</button>
     </form>
 

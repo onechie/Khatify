@@ -9,30 +9,59 @@ const disconnectModal = document.getElementById("disconnect-modal");
 const disconnectYes = document.getElementById("disconnect-yes");
 const disconnectNo = document.getElementById("disconnect-no");
 const disconnectText = document.getElementById("disconnect-text");
+const hamburgerMenu = document.getElementById("hamburger-menu");
+const collapsibleContent = document.getElementById("collapsible-content");
+const usernameInput = document.getElementById("username-input");
+const interestInput = document.getElementById("interest-input");
 
-function appendMessage(user, message, time) {
+let showStrangerName = true;
+let showYourName = true;
+
+hamburgerMenu.addEventListener("click", () => {
+  collapsibleContent.classList.toggle("hidden");
+});
+
+function appendMessage(user, message, time, username = "") {
   const messageElement = document.createElement("div");
   if (user.toLowerCase() === "stranger") {
     messageElement.innerHTML = `
     <div class="flex flex-col pb-2">
-      <div class="px-4 py-3 bg-neutral-900 max-w-[80%] w-fit rounded-xl">
+    ${
+      showStrangerName
+        ? `<p class="text-neutral-500 text-sm px-2">${
+            username || "Stranger"
+          }</p>`
+        : ""
+    }
+      <div class="px-3 py-2 bg-neutral-900 max-w-[80%] w-fit rounded-lg ">
         <p class="text-wrap break-words">${message}</p>
-        <p class="text-neutral-300 text-end">${time}</p>
+        <p class="text-nowrap text-neutral-300 text-end text-sm">${time}</p>
       </div>
     </div>
   `;
+    showStrangerName = false;
+    showYourName = true;
   } else if (user.toLowerCase() === "you") {
     messageElement.innerHTML = `
-        <div class="flex flex-col items-end pb-2">
-            <div class="px-4 py-3 bg-purple-500 max-w-[80%] w-fit rounded-xl">
-                <p class="text-wrap break-words">${message}</p>
-                <p class="text-neutral-300 text-end">${time}</p>
+        <div class="flex flex-col items-end pb-1">
+        ${
+          showYourName
+            ? `<p class="text-neutral-500 text-sm px-2">${
+                username || "You"
+              }</p>`
+            : ""
+        }
+            <div class="px-3 py-2 bg-purple-500 max-w-[80%] w-fit rounded-lg">
+                <p class="text-wrap break-words max-w-full">${message}</p>
+                <p class="text-nowrap text-neutral-300 text-end text-sm">${time}</p>
             </div>
         </div>
       `;
+    showStrangerName = true;
+    showYourName = false;
   } else {
     messageElement.innerHTML = `
-        <p class="text-center pb-2 text-neutral-300">${message}</p>
+        <p class="text-center pb-2 text-neutral-500">${message}</p>
       `;
   }
   chatBox.appendChild(messageElement);
@@ -47,6 +76,11 @@ function swapButtons() {
 function disableButtons(shouldDisable) {
   messageInput.disabled = shouldDisable;
   messageButton.disabled = shouldDisable;
+}
+
+function disableInputs(shouldDisable) {
+  usernameInput.disabled = shouldDisable;
+  interestInput.disabled = shouldDisable;
 }
 
 function toggleLoading(element, on) {
@@ -72,4 +106,13 @@ function getCurrentTime() {
   const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
 
   return `${hours}:${formattedMinutes} ${period}`;
+}
+function removeNonLetters(word) {
+  return word.replace(/[^a-zA-Z]/g, "");
+}
+function extractLetters(input) {
+  const words = input.split(",");
+  const uniqueWords = new Set(words.map((word) => removeNonLetters(word)));
+  const result = Array.from(uniqueWords);
+  return result;
 }

@@ -1,5 +1,4 @@
 const socket = io();
-
 let userRoomId = null;
 let isPaired = false;
 
@@ -7,28 +6,42 @@ socket.on("updateOnlineUsers", (count) => {
   onlineUsers.innerText = count;
 });
 
-socket.on("paired", (roomId) => {
-  userRoomId = roomId;
+socket.on("paired", ({ roomId, username, interest }) => {
   chatBox.innerHTML = "";
-  appendMessage("System", "You are now chatting with a stranger...");
+  collapsibleContent.classList.toggle("hidden");
+  userRoomId = roomId;
+  appendMessage(
+    "System",
+    `You are now chatting with ${username || "a stranger"}.`
+  );
+  if (interest && interest.length > 0) {
+    appendMessage("System", `Matched interest(s): ${interest.join(", ")}.`);
+  }
   disableButtons(false);
   isPaired = true;
 });
 
-socket.on("message", ({ message }) => {
-  appendMessage("Stranger", message, getCurrentTime());
+socket.on("chat", ({ message, username }) => {
+  appendMessage("Stranger", message, getCurrentTime(), username);
 });
 
-socket.on("partnerDisconnected", () => {
-  appendMessage("System", "Stranger Disconnected...");
+socket.on("partnerDisconnect", ({ username }) => {
+  collapsibleContent.classList.toggle("hidden");
+  appendMessage("System", `${username || "Stranger"} Disconnected.`);
   swapButtons();
   disableButtons(true);
   isPaired = false;
+  disableInputs(false);
 });
 
 function sendMessage(message) {
+  const username = usernameInput.value || "";
   if (message.trim()) {
-    socket.emit("message", { roomId: userRoomId, message });
-    appendMessage("You", message, getCurrentTime());
+    socket.emit("chat", {
+      roomId: userRoomId,
+      message,
+      username,
+    });
+    appendMessage("You", message, getCurrentTime(), username);
   }
 }
