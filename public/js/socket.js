@@ -1,0 +1,9 @@
+socket.on("updateOnlineUsers", updateUsersHandler);
+socket.on("paired", pairedHandler);
+socket.on("chat", chatHandler);
+socket.on("accidentDisconnect", onAccidentDisconnectHandler);
+socket.on("forceDisconnect", onForceDisconnectHandler);
+socket.on("waitPartner", waitPartnerHandler);
+socket.on("reconnect", reconnectHandler);
+socket.on("reconnectStatus", reconnectStatusHandler)
+socket.on("reconnectFailed", reconnectFailedHandler)
