@@ -25,29 +25,36 @@ chatForm.addEventListener("submit", (e) => {
   messageInput.focus();
 });
 
-interestInput.addEventListener("change", () => {
-  interestInput.value = extractLetters(interestInput.value);
-  sessionStorage.setItem("interest", interestInput.value);
-});
 usernameInput.addEventListener("change", () => {
   usernameInput.value = removeNonLetters(usernameInput.value);
-  sessionStorage.setItem("username", usernameInput.value);
+  setSessionData("username", usernameInput.value);
+});
+
+interestInput.addEventListener("change", () => {
+  const interests = extractLetters(
+    `${interestInput.value.toLowerCase()},${getSessionData("interest")}`
+  );
+  interestInput.value = "";
+  setSessionData("interest", interests);
+  updateInterestList(interests);
 });
 
 hamburgerMenu.addEventListener("click", () => {
   collapsibleContent.classList.toggle("hidden");
+  hamburgerMenu.classList.toggle("text-white")
+  hamburgerMenu.classList.toggle("text-purple-500")
 });
 
 window.addEventListener("load", () => {
   const roomId = getSessionData("roomId");
   const username = getSessionData("username");
-  const interest = getSessionData("interest");
+  const interest = extractLetters(getSessionData("interest"));
 
   username ? (usernameInput.value = username) : (usernameInput.value = "");
-  interest ? (interestInput.value = interest) : (interestInput.value = "");
+  interest ? updateInterestList(interest) : (interestInput.value = "");
 
   if (roomId) {
-    socket.emit("reconnect", { roomId, username, interest});
+    socket.emit("reconnect", { roomId, username, interest });
     createSystemMessage(
       "You were disconnected last time. Attempting to reconnect."
     );

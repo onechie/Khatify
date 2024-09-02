@@ -13,6 +13,7 @@ const hamburgerMenu = document.getElementById("hamburger-menu");
 const collapsibleContent = document.getElementById("collapsible-content");
 const usernameInput = document.getElementById("username-input");
 const interestInput = document.getElementById("interest-input");
+const interestList = document.getElementById("interest-list");
 
 const socket = io();
 let userRoomId = null;
