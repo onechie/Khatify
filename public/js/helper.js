@@ -12,6 +12,7 @@ const removeNonLetters = (word) => {
 };
 
 const extractLetters = (input) => {
+  if (!input) return;
   const words = input.split(",");
   const uniqueWords = new Set(words.map((word) => removeNonLetters(word)));
   const result = Array.from(uniqueWords).filter((word) => word.length > 0);
