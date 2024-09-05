@@ -7,12 +7,15 @@ const {
 } = require("./handlers/userHandler");
 
 let onlineUsers = 0;
+let totalVisits = 0;
 
 const broadcastOnlineUsers = require("./utils/broadcastOnlineUsers");
 
 const socketHandler = (io) => {
   io.on("connection", (socket) => {
     onlineUsers++;
+    totalVisits++;
+    console.log("Total Visits:", totalVisits);
     broadcastOnlineUsers(io, onlineUsers);
 
     socket.on("findPartner", (data) => handleFindPartner(io, socket, data));
