@@ -137,11 +137,11 @@ const disableInputs = (shouldDisable) => {
 const toggleLoading = (element, on) => {
   if (on) {
     element.disabled = true;
-    element.querySelector(".text").style.display = "none";
+    element.querySelector(".icon").style.display = "none";
     element.querySelector(".loading").style.display = "block";
   } else {
     element.disabled = false;
-    element.querySelector(".text").style.display = "block";
+    element.querySelector(".icon").style.display = "block";
     element.querySelector(".loading").style.display = "none";
   }
 };
