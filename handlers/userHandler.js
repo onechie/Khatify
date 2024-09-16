@@ -117,10 +117,25 @@ const handleDisconnection = (socket, isAccident = false, username) => {
   }
 };
 
+const handleUserTyping = (socket, { username, roomId }) => {
+  if (roomId) {
+    socket.to(roomId).emit("userTyping", { username: username || "Stranger" });
+  }
+};
+const handleUserStoppedTyping = (socket, { username, roomId }) => {
+  if (roomId) {
+    socket
+      .to(roomId)
+      .emit("userStoppedTyping", { username: username || "Stranger" });
+  }
+};
+
 module.exports = {
   handleFindPartner,
   handleChat,
   handleForceDisconnect,
   handleDisconnect,
   handleReconnect,
+  handleUserTyping,
+  handleUserStoppedTyping,
 };

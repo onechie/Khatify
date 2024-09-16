@@ -4,6 +4,8 @@ const {
   handleForceDisconnect,
   handleDisconnect,
   handleReconnect,
+  handleUserTyping,
+  handleUserStoppedTyping,
 } = require("./handlers/userHandler");
 
 let onlineUsers = 0;
@@ -26,6 +28,12 @@ const socketHandler = (io) => {
       onlineUsers--;
     });
     socket.on("reconnect", (data) => handleReconnect(io, socket, data));
+
+    // User typing
+    socket.on("userTyping", (data) => handleUserTyping(socket, data));
+    socket.on("userStoppedTyping", (data) =>
+      handleUserStoppedTyping(socket, data)
+    );
   });
 };
 

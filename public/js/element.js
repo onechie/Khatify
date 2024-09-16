@@ -1,3 +1,4 @@
+// ---- DOM Elements ---- //
 const chatBox = document.getElementById("chat-box");
 const chatForm = document.getElementById("chat-form");
 const onlineUsers = document.getElementById("online-users");
@@ -14,9 +15,20 @@ const collapsibleContent = document.getElementById("collapsible-content");
 const usernameInput = document.getElementById("username-input");
 const interestInput = document.getElementById("interest-input");
 const interestList = document.getElementById("interest-list");
+const typingAnimation = document.getElementById("typing-animation");
 
+// ---- Dynamic Elements ---- //
+const loadingElement = document.createElement("div");
+
+// ---- Socket Connection ---- //
 const socket = io();
+
+// ---- Application State ---- //
 let userRoomId = null;
 let isPaired = false;
 let showStrangerName = true;
 let showYourName = true;
+
+// ---- Typing Indicator ---- //
+let typingTimeout;
+let isTyping = false;
