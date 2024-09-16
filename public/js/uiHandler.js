@@ -91,20 +91,14 @@ const updateInterestList = (interests) => {
     interestList.appendChild(interestItem);
     interestItem.addEventListener("click", () => {
       if (!isPaired) {
-        removeInterest(interest);
+        interestList.removeChild(interestItem);
+        interests = interests.filter(
+          (thisInterest) => thisInterest !== interest
+        );
+        setSessionData("interest", interests);
       }
     });
   });
-};
-
-/**
- * Removes an interest from the list and updates session data.
- * @param {string} interest - The interest to remove.
- */
-const removeInterest = (interest) => {
-  interestList.removeChild(interestItem);
-  interests = interests.filter((thisInterest) => thisInterest !== interest);
-  setSessionData("interest", interests);
 };
 
 // ---- UI State Functions ---- //
